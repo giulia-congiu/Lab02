@@ -17,11 +17,11 @@ while True:
 
     if int(txtIn) == 1:
         print("Ok, quale parola devo aggiungere")
-        txtIn = input().lower()
-        while not txtIn.isalpha():
+        inparola = input().lower()
+        while not inparola.replace(" ","").isalpha():
             print("ERRORE, INSERISCI UNA PAROLA")
-            txtIn = input().lower()  # torno all'inizio
-        parola = txtIn.split()
+            inparola = input().lower()  # torno all'inizio
+        parola = inparola.split()
         t.handleAdd(parola)
         print(parola)
         print("Aggiunta")
