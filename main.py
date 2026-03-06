@@ -2,7 +2,6 @@ import translator as tr
 
 t = tr.Translator()
 
-
 while True:
 
     t.printMenu()
@@ -23,6 +22,7 @@ while True:
             print("ERRORE, INSERISCI UNA PAROLA")
             txtIn = input().lower()  # torno all'inizio
         parola = txtIn.split()
+        t.handleAdd(parola)
         print(parola)
         print("Aggiunta")
 

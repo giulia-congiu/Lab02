@@ -1,9 +1,10 @@
 class Dictionary:
+
     def __init__(self):
-        self.data= {} #inizializzo un dizionario vuoto
+        self.dizionario= {} #inizializzo un dizionario vuoto
 
     def addWord(self, alieno, italiano):
-        self.data[alieno]=italiano
+        self.dizionario.setdefault(alieno, []).extend(italiano)
 
     def translate(self):
         pass
