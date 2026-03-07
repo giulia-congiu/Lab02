@@ -1,12 +1,11 @@
 import translator as tr
 
 t = tr.Translator()
+t.loadDictionary("dictionary.txt")
 
 while True:
 
     t.printMenu()
-
-    t.loadDictionary("dictionary.txt")
 
     txtIn = input()
     while not txtIn.isdigit() or not (1 <= int(txtIn) <= 4):
@@ -21,18 +20,34 @@ while True:
         while not inparola.replace(" ","").isalpha():
             print("ERRORE, INSERISCI UNA PAROLA")
             inparola = input().lower()  # torno all'inizio
-        parola = inparola.split()
+        parola = inparola.split() #in questo modo passo a handleadd una lista
         t.handleAdd(parola)
         print(parola)
         print("Aggiunta")
 
     if int(txtIn) == 2:
         print("Ok, quale parola devo cercare?")
-        txtIn = input()
-        pass
+        inparola = input().lower()
+        while not inparola.isalpha():
+            print("ERRORE, INSERISCI UNA PAROLA")
+            inparola = input().lower()  # torno all'inizio
+
+        t.handleTranslate(inparola)
+
 
     if int(txtIn) == 3:
-        pass
+        print("Ok, quale parola devo cercare?")
+        inparola = input().lower()
+        while not all(c.isalpha() or c == "?" for c in inparola) or inparola.count("?") != 1:
+            #all(...) — restituisce True se tutti gli elementi soddisfano la condizione
+            #inparola.count("?") != 1 — controlla che ci sia esattamente solo un ?:
+            print("ERRORE, INSERISCI UNA PAROLA CON UN SOLO ?")
+            inparola = input().lower()
+        t.handleWildCard(inparola)
 
     if int(txtIn) == 4:
+        if int(txtIn) == 4:
+            t.handlePrintAll()
+
+    if int(txtIn) == 5:
         break

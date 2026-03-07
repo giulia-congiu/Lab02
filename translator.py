@@ -11,7 +11,8 @@ class Translator:
         print("1. Aggiungi nuova parola")
         print("2. Cerca una traduzione")
         print('3. Cerca con wildcard')
-        print('4. Exit')
+        print('4. Stampa tutto')
+        print('5. Esci')
         print("-" * 25)
         pass
 
@@ -22,21 +23,38 @@ class Translator:
                for riga in file:
                     coppia= riga.strip().split()
                     alieno= coppia[0]
-                    italiano= tuple(coppia[1])
+                    italiano= coppia[1:] # lista di tutte le traduzioni
                     self.dizionario.addWord(alieno, italiano)
 
 
     def handleAdd(self, entry):
         # entry is a tuple <parola_aliena> <traduzione1 traduzione2 ...>
         chiave= entry[0]
-        traduzioni= tuple(entry[1:])
+        traduzioni= entry[1:]
         self.dizionario.addWord(chiave, traduzioni)
 
 
     def handleTranslate(self, query):
         # query is a string <parola_aliena>
-        pass
+        traduzioni= self.dizionario.translate(query)
+        if traduzioni is None:
+            print("Parola non trovata!")
+        else:
+            print(traduzioni)
+
+
 
     def handleWildCard(self,query):
-        # query is a string with a ? --> <par?la_aliena>
-        pass
+        #query is a string with a ? --> <par?la_aliena>
+        risultati = self.dizionario.translateWordWildCard(query) #è un dizionario
+        if not risultati:
+            print("Nessuna parola trovata!")
+        else:
+            for parola, traduzioni in risultati.items():
+                print(parola)
+                for t in traduzioni:
+                    print(t)
+
+
+    def handlePrintAll(self):
+        self.dizionario.printAll()
